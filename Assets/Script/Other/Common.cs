@@ -139,4 +139,40 @@ public class Common
     {
         return num > min && num < max;
     }
+
+    /// <summary>
+    /// 取得List內隨機元素
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public static T GetRandomElement<T>(List<T> list)
+    {
+        if (list.Count <= 0)
+        {
+            return default(T);
+        }
+
+        int randomIndex = UnityEngine.Random.Range(0, list.Count);
+        randomIndex = CheckValid_Int(randomIndex, 0, list.Count - 1);
+        return list[randomIndex];
+    }
+
+    /// <summary>
+    /// 取得陣列內隨機元素
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array"></param>
+    /// <returns></returns>
+    public static T GetRandomElement<T>(T[] array)
+    {
+        if (array.Length <= 0)
+        {
+            return default(T);
+        }
+
+        int randomIndex = UnityEngine.Random.Range(0, array.Length);
+        randomIndex = CheckValid_Int(randomIndex, 0, array.Length - 1);
+        return array[randomIndex];
+    }
 }
