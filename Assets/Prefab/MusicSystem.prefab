@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BGM:
-  - BGM: 0
-    AudioClip: {fileID: 0}
+  - BGM: 1
+    AudioClip: {fileID: 8300000, guid: 1ba4b2ac7e104449f80160210ee920bb, type: 3}
   Sound:
   - Sound: 1
     AudioClip: {fileID: 8300000, guid: 623e81e50e90442d99a2e43dcfb58a26, type: 3}
