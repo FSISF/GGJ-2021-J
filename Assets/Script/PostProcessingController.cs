@@ -10,6 +10,8 @@ public class PostProcessingController : MonoBehaviour
     public PostProcessVolume volume;
 
     public Vector2 brightnessControlRange = new Vector2(-10, 0);
+    
+    public Vector2 saturationControlRange = new Vector2(-100, 0);
 
     private ColorGrading gradingSettings;
     
@@ -20,24 +22,34 @@ public class PostProcessingController : MonoBehaviour
         if (gradingSettings)
         {
             OnBrightnessChanged(0);
+            OnSaturationChanged(0);
         }
     }
 
-    void OnBrightnessChanged(float val)
+    private void OnBrightnessChanged(float val)
     {
         if (!gradingSettings) return;
 
         gradingSettings.postExposure.Override(Mathf.Lerp(brightnessControlRange.x, brightnessControlRange.y, val));
     }
 
+    private void OnSaturationChanged(float val)
+    {
+        if(!gradingSettings) return;
+        
+        gradingSettings.saturation.Override(Mathf.Lerp(saturationControlRange.x, saturationControlRange.y, val));
+    }
+
     private void OnEnable()
     {
         GameEventManager.Instance.BrightnessChange += OnBrightnessChanged;
+        GameEventManager.Instance.SaturationChange += OnSaturationChanged;
     }
 
     private void OnDisable()
     {
         GameEventManager.Instance.BrightnessChange -= OnBrightnessChanged;
+        GameEventManager.Instance.SaturationChange -= OnSaturationChanged;
     }
 
     private void Reset()

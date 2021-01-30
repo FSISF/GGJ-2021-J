@@ -18,6 +18,8 @@ namespace Script.Game
         public event Action HighScorePenalBack;
 
         public event Action<float> BrightnessChange;
+        
+        public event Action<float> SaturationChange;
 
         public event Action<float> SoundVolumeChange;
 
@@ -106,6 +108,7 @@ namespace Script.Game
         public void OnHighScorePenalBack() => HighScorePenalBack?.Invoke();
 
         public void OnBrightnessChange(float brightness) => BrightnessChange?.Invoke(brightness);
+        public void OnSaturationChange(float saturation) => SaturationChange?.Invoke(saturation);
         public void OnSoundVolumeChange(float volume) => SoundVolumeChange?.Invoke(volume);
         public void OnMusicVolumeChange(float volume) => MusicVolumeChange?.Invoke(volume);
 
