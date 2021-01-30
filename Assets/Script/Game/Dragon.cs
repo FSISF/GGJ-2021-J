@@ -8,8 +8,7 @@ public class Dragon : MonoBehaviour, IStateObject
     public Transform TransformRoot = null;
     public Rigidbody2D Rigidbody2DThis = null;
     public BoxCollider2D BoxCollider2DThis = null;
-
-    public ContactFilter2D ContactFilter2DGround;
+    public SpriteRenderer SpriteRendererDragon = null;
 
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
@@ -43,12 +42,16 @@ public class Dragon : MonoBehaviour, IStateObject
             case eDragonState.Injurd:
                 DragonStateContext.SetState(new DragonState_Injurd(this));
                 break;
+            case eDragonState.Dead:
+                DragonStateContext.SetState(new DragonState_Dead(this));
+                break;
         }
     }
 
     public void Move(Vector3 direct)
     {
         TransformRoot.position += direct * 10 * Time.deltaTime;
+        SpriteRendererDragon.flipX = direct.x < 0;
     }
 
     public void Jump()
@@ -58,14 +61,14 @@ public class Dragon : MonoBehaviour, IStateObject
 
     public bool CheckGround()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(TransformRoot.position, Vector2.down, BoxCollider2DThis.bounds.extents.y + 0.01f, LayerMask.GetMask("Ground"));
-        return hits.Length > 0;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(TransformRoot.position, Vector2.down, BoxCollider2DThis.bounds.extents.y + 0.05f, LayerMask.GetMask("Ground"));
+        return hits.Length > 0 && Rigidbody2DThis.velocity.y <= 0f;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(TransformRoot.position, TransformRoot.position + (Vector3.down * (BoxCollider2DThis.bounds.extents.y + 0.01f)));
+        Gizmos.DrawLine(TransformRoot.position, TransformRoot.position + (Vector3.down * (BoxCollider2DThis.bounds.extents.y + 0.05f)));
     }
 }
 
@@ -77,6 +80,7 @@ public enum eDragonState
     Jump,
     Hot,
     Injurd,
+    Dead,
 }
 
 public class DragonStateContext : IStateContext
@@ -232,6 +236,23 @@ public class DragonState_Injurd : IDragonState
     public override void StateStart()
     {
         MusicSystem.Instance.PlaySound(eSound.Hit);
+    }
+
+    public override void StateUpdate() { }
+    public override void StateEnd() { }
+}
+
+public class DragonState_Dead : IDragonState
+{
+    public DragonState_Dead(Dragon dragon) : base(dragon)
+    {
+    }
+
+    public override eDragonState State { get { return eDragonState.Dead; } }
+
+    public override void StateStart()
+    {
+        MusicSystem.Instance.PlaySound(eSound.Death);
     }
 
     public override void StateUpdate() { }

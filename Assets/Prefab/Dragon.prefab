@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5164325016579766545}
   - component: {fileID: 9031718010961922601}
   - component: {fileID: 2536772815901005794}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dragon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.3, y: 2.3}
   m_EdgeRadius: 0
 --- !u!114 &2536772815901005794
 MonoBehaviour:
@@ -97,20 +97,7 @@ MonoBehaviour:
   TransformRoot: {fileID: 8827852123812159376}
   Rigidbody2DThis: {fileID: 5164325016579766545}
   BoxCollider2DThis: {fileID: 9031718010961922601}
-  ContactFilter2DGround:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 64
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
+  SpriteRendererDragon: {fileID: 4793590592249390384}
 --- !u!1 &3631784037825911963
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,10 +166,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2059627295
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: edbef6ed994e05b4aab5ae18b09ff799, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
