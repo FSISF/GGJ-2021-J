@@ -64,4 +64,24 @@ public class MusicSystem : SingletonMono<MusicSystem>
             AudioSource_Sound.PlayOneShot(soundData.AudioClip);
         }
     }
+
+    public void MuteBGM(bool isMute)
+    {
+        AudioSource_BGM.mute = isMute;
+    }
+
+    public void MuteSound(bool isMute)
+    {
+        AudioSource_Sound.mute = isMute;
+    }
+
+    public void SetVolumeBGM(float volume)
+    {
+        AudioSource_BGM.volume = volume;
+    }
+
+    public void SetVolumeSound(float volume)
+    {
+        AudioSource_Sound.volume = volume;
+    }
 }
