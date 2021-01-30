@@ -29,7 +29,7 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (rigidbody is null) return;
+        if (rigidbody is null || !ignoreGravity) return;
 
         gravity = rigidbody.gravityScale;
         rigidbody.gravityScale = 0;
@@ -37,7 +37,7 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (rigidbody is null) return;
+        if (rigidbody is null || !ignoreGravity) return;
 
         rigidbody.gravityScale = gravity;
     }
