@@ -8,7 +8,7 @@ public enum eBGM
 }
 
 [System.Serializable]
-public struct BGMData
+public class BGMData
 {
     public eBGM BGM;
     public AudioClip AudioClip;
@@ -17,16 +17,16 @@ public struct BGMData
 public enum eSound
 {
     None,
-    Hit,
-    Hit2,
-    Hit3,
+    Coin,
+    Explosion,
     Jump,
-    Jump2,
-    Jump3,
+    Death,
+    HighScore,
+    Hit,
 }
 
 [System.Serializable]
-public struct SoundData
+public class SoundData
 {
     public eSound Sound;
     public AudioClip AudioClip;
@@ -43,5 +43,25 @@ public class MusicSystem : SingletonMono<MusicSystem>
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void PlayBGM(eBGM bgm, bool loop = true)
+    {
+        BGMData bgmData = BGM.Find(data => data.BGM == bgm);
+        if (bgmData != null)
+        {
+            AudioSource_BGM.clip = bgmData.AudioClip;
+            AudioSource_BGM.loop = loop;
+            AudioSource_BGM.Play();
+        }
+    }
+
+    public void PlaySound(eSound sound)
+    {
+        SoundData soundData = Sound.Find(data => data.Sound == sound);
+        if (soundData != null)
+        {
+            AudioSource_Sound.PlayOneShot(soundData.AudioClip);
+        }
     }
 }

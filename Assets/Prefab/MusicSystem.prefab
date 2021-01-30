@@ -50,17 +50,17 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
   Sound:
   - Sound: 1
-    AudioClip: {fileID: 8300000, guid: 8bf705025bfbf43cc91bf9a273b477c4, type: 3}
+    AudioClip: {fileID: 8300000, guid: 623e81e50e90442d99a2e43dcfb58a26, type: 3}
   - Sound: 2
-    AudioClip: {fileID: 8300000, guid: 602e308718c4744a99e1bf724bab2a0b, type: 3}
+    AudioClip: {fileID: 8300000, guid: 072b3324f0f3244b78a6fcc34098384a, type: 3}
   - Sound: 3
-    AudioClip: {fileID: 8300000, guid: 64df68d64ae804aaa8b9ca61e48ebb4d, type: 3}
-  - Sound: 4
     AudioClip: {fileID: 8300000, guid: f2cf9d13b8c484e39ab39bf69b05f0b0, type: 3}
+  - Sound: 4
+    AudioClip: {fileID: 8300000, guid: c738bb312a6ba492c945489d4ad2047e, type: 3}
   - Sound: 5
-    AudioClip: {fileID: 8300000, guid: 98290ea6c7f8649f8a404cf7747e204e, type: 3}
+    AudioClip: {fileID: 8300000, guid: 7f0cafa5ec8854be1b83a3f9506e8a09, type: 3}
   - Sound: 6
-    AudioClip: {fileID: 8300000, guid: ab1598d618d2b4694b01b33a8d783424, type: 3}
+    AudioClip: {fileID: 8300000, guid: 2a3a80cdea0b3406a8455b63028bc417, type: 3}
   AudioSource_BGM: {fileID: 4646237387691531410}
   AudioSource_Sound: {fileID: 5673489945734970228}
 --- !u!1 &7126732361505796959

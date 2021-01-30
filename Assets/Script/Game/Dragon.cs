@@ -73,6 +73,8 @@ public enum eDragonState
     Move,
     SargentJump,
     MoveJump,
+    Hot,
+    Injurd,
 }
 
 public class DragonStateContext : IStateContext
@@ -175,6 +177,7 @@ public class DragonState_SargentJump : IDragonState
 
     public override void StateStart()
     {
+        MusicSystem.Instance.PlaySound(eSound.Jump);
         Dragon.Jump();
     }
 
@@ -199,6 +202,7 @@ public class DragonState_MoveJump : IDragonState
 
     public override void StateStart()
     {
+        MusicSystem.Instance.PlaySound(eSound.Jump);
         Dragon.Jump();
     }
 
@@ -224,5 +228,31 @@ public class DragonState_MoveJump : IDragonState
         }
     }
 
+    public override void StateEnd() { }
+}
+
+public class DragonState_Hot : IDragonState
+{
+    public DragonState_Hot(Dragon dragon) : base(dragon)
+    {
+    }
+
+    public override eDragonState State { get { return eDragonState.Hot; } }
+
+    public override void StateStart() { }
+    public override void StateUpdate() { }
+    public override void StateEnd() { }
+}
+
+public class DragonState_Injurd : IDragonState
+{
+    public DragonState_Injurd(Dragon dragon) : base(dragon)
+    {
+    }
+
+    public override eDragonState State { get { return eDragonState.Injurd; } }
+
+    public override void StateStart() { }
+    public override void StateUpdate() { }
     public override void StateEnd() { }
 }
