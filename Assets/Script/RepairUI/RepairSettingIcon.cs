@@ -11,9 +11,12 @@ public class RepairSettingIcon : MonoBehaviour
 
     private bool active;
 
+    public GameObject settingButton;
+
     private void Start()
     {
         GameEventManager.Instance.StartButtonOnHit += Rest;
+        settingButton.SetActive(false);
     }
 
     private void Rest()
@@ -26,6 +29,7 @@ public class RepairSettingIcon : MonoBehaviour
         if (!active || other.transform.name != targetName) return;
 
         GameEventManager.Instance.OnSettingIconBack();
+        settingButton.SetActive(true);
         Destroy(other.gameObject);
         active = false;
     }
