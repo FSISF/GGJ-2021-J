@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 0}
-  ignoreGravity: 0
+  ignoreGravity: 1
 --- !u!212 &2020038741
 SpriteRenderer:
   m_ObjectHideFlags: 0
