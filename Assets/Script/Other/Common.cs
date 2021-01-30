@@ -7,12 +7,12 @@ using UniRx;
 public class Common
 {
     /// <summary>
-    /// ©µ¿ğ´X¬í«á°õ¦æ
+    /// å»¶é²å¹¾ç§’å¾ŒåŸ·è¡Œ
     /// </summary>
     /// <param name="second"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public IDisposable Timer(float second, Action callback)
+    public static IDisposable Timer(float second, Action callback)
     {
         return Observable.Timer(TimeSpan.FromSeconds(second)).DoOnCompleted(() =>
         {
@@ -21,7 +21,7 @@ public class Common
     }
 
     /// <summary>
-    /// ÀH¾÷±Æ§Ç
+    /// éš¨æ©Ÿæ’åº
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
@@ -36,7 +36,7 @@ public class Common
     }
 
     /// <summary>
-    /// ¦ê¦C¤º®e¥æ´«
+    /// ä¸²åˆ—å…§å®¹äº¤æ›
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
@@ -52,7 +52,7 @@ public class Common
     }
 
     /// <summary>
-    /// °}¦C¤º®e¥æ´«
+    /// é™£åˆ—å…§å®¹äº¤æ›
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="array"></param>
@@ -68,7 +68,7 @@ public class Common
     }
 
     /// <summary>
-    /// ¸ê®Æ¥æ´«
+    /// è³‡æ–™äº¤æ›
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="t1"></param>
@@ -81,7 +81,7 @@ public class Common
     }
 
     /// <summary>
-    /// ÀË¬d½d³ò
+    /// æª¢æŸ¥ç¯„åœ
     /// </summary>
     /// <param name="num"></param>
     /// <param name="min"></param>
@@ -99,7 +99,7 @@ public class Common
     }
 
     /// <summary>
-    /// ÀË¬d½d³ò
+    /// æª¢æŸ¥ç¯„åœ
     /// </summary>
     /// <param name="num"></param>
     /// <param name="min"></param>
@@ -117,7 +117,7 @@ public class Common
     }
 
     /// <summary>
-    /// ¼Æ­È¦b½d³ò¤º(§tµ¥©ó)
+    /// æ•¸å€¼åœ¨ç¯„åœå…§(å«ç­‰æ–¼)
     /// </summary>
     /// <param name="num"></param>
     /// <param name="min"></param>
@@ -129,7 +129,7 @@ public class Common
     }
 
     /// <summary>
-    /// ¼Æ­È¦b½d³ò¤º(¤£§tµ¥©ó)
+    /// æ•¸å€¼åœ¨ç¯„åœå…§(ä¸å«ç­‰æ–¼)
     /// </summary>
     /// <param name="num"></param>
     /// <param name="min"></param>
@@ -141,7 +141,7 @@ public class Common
     }
 
     /// <summary>
-    /// ¨ú±oList¤ºÀH¾÷¤¸¯À
+    /// å–å¾—Listå…§éš¨æ©Ÿå…ƒç´ 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
@@ -159,7 +159,7 @@ public class Common
     }
 
     /// <summary>
-    /// ¨ú±o°}¦C¤ºÀH¾÷¤¸¯À
+    /// å–å¾—é™£åˆ—å…§éš¨æ©Ÿå…ƒç´ 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="array"></param>

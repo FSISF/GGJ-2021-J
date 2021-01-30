@@ -6,6 +6,10 @@ public class Dragon : MonoBehaviour, IStateObject
 {
     public eDragonState State;
     public Transform TransformRoot = null;
+    public Rigidbody2D Rigidbody2DThis = null;
+    public BoxCollider2D BoxCollider2DThis = null;
+
+    public ContactFilter2D ContactFilter2DGround;
 
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
@@ -33,12 +37,35 @@ public class Dragon : MonoBehaviour, IStateObject
             case eDragonState.Jump:
                 DragonStateContext.SetState(new DragonState_Jump(this));
                 break;
+            case eDragonState.Hot:
+                DragonStateContext.SetState(new DragonState_Hot(this));
+                break;
+            case eDragonState.Injurd:
+                DragonStateContext.SetState(new DragonState_Injurd(this));
+                break;
         }
     }
 
     public void Move(Vector3 direct)
     {
         TransformRoot.position += direct * 10 * Time.deltaTime;
+    }
+
+    public void Jump()
+    {
+        Rigidbody2DThis.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+    }
+
+    public bool CheckGround()
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(TransformRoot.position, Vector2.down, BoxCollider2DThis.bounds.extents.y + 0.01f, LayerMask.GetMask("Ground"));
+        return hits.Length > 0;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(TransformRoot.position, TransformRoot.position + (Vector3.down * (BoxCollider2DThis.bounds.extents.y + 0.01f)));
     }
 }
 
@@ -48,6 +75,8 @@ public enum eDragonState
     Idle,
     Move,
     Jump,
+    Hot,
+    Injurd,
 }
 
 public class DragonStateContext : IStateContext
@@ -88,9 +117,13 @@ public class DragonState_Idle : IDragonState
 
     private void CheckMove()
     {
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             Dragon.SetState(eDragonState.Move);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dragon.SetState(eDragonState.Jump);
         }
     }
 
@@ -109,6 +142,11 @@ public class DragonState_Move : IDragonState
 
     public override void StateUpdate()
     {
+        CheckControl();
+    }
+
+    private void CheckControl()
+    {
         if (Input.GetKey(KeyCode.A))
         {
             Dragon.Move(Vector3.left);
@@ -120,6 +158,11 @@ public class DragonState_Move : IDragonState
         else
         {
             Dragon.SetState(eDragonState.Idle);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dragon.SetState(eDragonState.Jump);
         }
     }
 
@@ -134,7 +177,63 @@ public class DragonState_Jump : IDragonState
 
     public override eDragonState State { get { return eDragonState.Jump; } }
 
+    public override void StateStart()
+    {
+        MusicSystem.Instance.PlaySound(eSound.Jump);
+        Dragon.Jump();
+    }
+
+    public override void StateUpdate()
+    {
+        CheckControl();
+
+        if (Dragon.CheckGround())
+        {
+            Dragon.SetState(eDragonState.Idle);
+        }
+    }
+
+    private void CheckControl()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            Dragon.Move(Vector3.left);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            Dragon.Move(Vector3.right);
+        }
+    }
+
+    public override void StateEnd() { }
+}
+
+public class DragonState_Hot : IDragonState
+{
+    public DragonState_Hot(Dragon dragon) : base(dragon)
+    {
+    }
+
+    public override eDragonState State { get { return eDragonState.Hot; } }
+
     public override void StateStart() { }
+    public override void StateUpdate() { }
+    public override void StateEnd() { }
+}
+
+public class DragonState_Injurd : IDragonState
+{
+    public DragonState_Injurd(Dragon dragon) : base(dragon)
+    {
+    }
+
+    public override eDragonState State { get { return eDragonState.Injurd; } }
+
+    public override void StateStart()
+    {
+        MusicSystem.Instance.PlaySound(eSound.Hit);
+    }
+
     public override void StateUpdate() { }
     public override void StateEnd() { }
 }
