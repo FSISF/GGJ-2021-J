@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Script.System
 {
-    public class BoundaryController : SingletonMono<BoundaryController>
+    public class BoundaryBuilder : MonoBehaviour
     {
         [SerializeField] private BoxCollider2D floor;
         [SerializeField] private string layerName;
