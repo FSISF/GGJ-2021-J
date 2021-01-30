@@ -6,6 +6,10 @@ public class Dragon : MonoBehaviour, IStateObject
 {
     public eDragonState State;
     public Transform TransformRoot = null;
+    public Rigidbody2D Rigidbody2DThis = null;
+    public BoxCollider2D BoxCollider2DThis = null;
+
+    public ContactFilter2D ContactFilter2DGround;
 
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
@@ -30,8 +34,11 @@ public class Dragon : MonoBehaviour, IStateObject
             case eDragonState.Move:
                 DragonStateContext.SetState(new DragonState_Move(this));
                 break;
-            case eDragonState.Jump:
-                DragonStateContext.SetState(new DragonState_Jump(this));
+            case eDragonState.SargentJump:
+                DragonStateContext.SetState(new DragonState_SargentJump(this));
+                break;
+            case eDragonState.MoveJump:
+                DragonStateContext.SetState(new DragonState_MoveJump(this));
                 break;
         }
     }
@@ -40,6 +47,23 @@ public class Dragon : MonoBehaviour, IStateObject
     {
         TransformRoot.position += direct * 10 * Time.deltaTime;
     }
+
+    public void Jump()
+    {
+        Rigidbody2DThis.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+    }
+
+    public bool CheckGround()
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(TransformRoot.position, Vector2.down, BoxCollider2DThis.bounds.extents.y + 0.01f, LayerMask.GetMask("Ground"));
+        return hits.Length > 0;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(TransformRoot.position, TransformRoot.position + (Vector3.down * (BoxCollider2DThis.bounds.extents.y + 0.01f)));
+    }
 }
 
 public enum eDragonState
@@ -47,7 +71,8 @@ public enum eDragonState
     None,
     Idle,
     Move,
-    Jump,
+    SargentJump,
+    MoveJump,
 }
 
 public class DragonStateContext : IStateContext
@@ -88,9 +113,13 @@ public class DragonState_Idle : IDragonState
 
     private void CheckMove()
     {
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             Dragon.SetState(eDragonState.Move);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dragon.SetState(eDragonState.SargentJump);
         }
     }
 
@@ -109,6 +138,11 @@ public class DragonState_Move : IDragonState
 
     public override void StateUpdate()
     {
+        CheckControl();
+    }
+
+    private void CheckControl()
+    {
         if (Input.GetKey(KeyCode.A))
         {
             Dragon.Move(Vector3.left);
@@ -121,20 +155,74 @@ public class DragonState_Move : IDragonState
         {
             Dragon.SetState(eDragonState.Idle);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Dragon.SetState(eDragonState.MoveJump);
+        }
     }
 
     public override void StateEnd() { }
 }
 
-public class DragonState_Jump : IDragonState
+public class DragonState_SargentJump : IDragonState
 {
-    public DragonState_Jump(Dragon dragon) : base(dragon)
+    public DragonState_SargentJump(Dragon dragon) : base(dragon)
     {
     }
 
-    public override eDragonState State { get { return eDragonState.Jump; } }
+    public override eDragonState State { get { return eDragonState.SargentJump; } }
 
-    public override void StateStart() { }
-    public override void StateUpdate() { }
+    public override void StateStart()
+    {
+        Dragon.Jump();
+    }
+
+    public override void StateUpdate()
+    {
+        if (Dragon.CheckGround())
+        {
+            Dragon.SetState(eDragonState.Idle);
+        }
+    }
+
+    public override void StateEnd() { }
+}
+
+public class DragonState_MoveJump : IDragonState
+{
+    public DragonState_MoveJump(Dragon dragon) : base(dragon)
+    {
+    }
+
+    public override eDragonState State { get { return eDragonState.MoveJump; } }
+
+    public override void StateStart()
+    {
+        Dragon.Jump();
+    }
+
+    public override void StateUpdate()
+    {
+        CheckControl();
+
+        if (Dragon.CheckGround())
+        {
+            Dragon.SetState(eDragonState.Idle);
+        }
+    }
+
+    private void CheckControl()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            Dragon.Move(Vector3.left);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            Dragon.Move(Vector3.right);
+        }
+    }
+
     public override void StateEnd() { }
 }
