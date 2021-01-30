@@ -12,8 +12,23 @@ public class Dragon : MonoBehaviour, IStateObject
 
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
+    private Vector2 faceDirect = Vector2.right;
+    public Vector2 FaceDirect
+    {
+        get
+        {
+            return faceDirect;
+        }
+        private set
+        {
+            faceDirect = value;
+            SpriteRendererDragon.flipX = faceDirect.x < 0;
+        }
+    }
+
     void Start()
     {
+        FaceDirect = Vector2.right;
         SetState(eDragonState.Idle);
     }
 
@@ -51,7 +66,7 @@ public class Dragon : MonoBehaviour, IStateObject
     public void Move(Vector3 direct)
     {
         TransformRoot.position += direct * 10 * Time.deltaTime;
-        SpriteRendererDragon.flipX = direct.x < 0;
+        FaceDirect = direct;
     }
 
     public void Jump()
@@ -193,6 +208,7 @@ public class DragonState_Jump : IDragonState
 
         if (Dragon.CheckGround())
         {
+            Dragon.Rigidbody2DThis.velocity = Vector2.zero;
             Dragon.SetState(eDragonState.Idle);
         }
     }
@@ -236,9 +252,31 @@ public class DragonState_Injurd : IDragonState
     public override void StateStart()
     {
         MusicSystem.Instance.PlaySound(eSound.Hit);
+        AddForce();
     }
 
-    public override void StateUpdate() { }
+    private void AddForce()
+    {
+        Dragon.Rigidbody2DThis.velocity = Vector2.zero;
+        if (Dragon.FaceDirect == Vector2.right)
+        {
+            Dragon.Rigidbody2DThis.AddForce(new Vector2(-1, 1) * 2.5f, ForceMode2D.Impulse);
+        }
+        else
+        {
+            Dragon.Rigidbody2DThis.AddForce(new Vector2(1, 1) * 2.5f, ForceMode2D.Impulse);
+        }
+    }
+
+    public override void StateUpdate()
+    {
+        if (Dragon.CheckGround())
+        {
+            Dragon.Rigidbody2DThis.velocity = Vector2.zero;
+            Dragon.SetState(eDragonState.Idle);
+        }
+    }
+
     public override void StateEnd() { }
 }
 
