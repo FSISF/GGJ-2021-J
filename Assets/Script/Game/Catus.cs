@@ -15,6 +15,15 @@ public class Catus : MonoBehaviour, IStateObject
 
     void Start()
     {
+        Script.Game.GameEventManager.Instance.CactusCompleted += () => 
+        {
+            if (State != eCatusState.Hide)
+            {
+                return;
+            }
+            SetState(eCatusState.Grow);
+        };
+
         SetState(eCatusState.Hide);
     }
 
@@ -94,13 +103,7 @@ public class CatusState_Hide : ICatusState
         Catus.TransformRoot.localScale = Vector3.zero;
     }
 
-    public override void StateUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Catus.SetState(eCatusState.Grow);
-        }
-    }
+    public override void StateUpdate() { }
     public override void StateEnd() { }
 }
 
