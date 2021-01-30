@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Rigidbody2D))]
 public class DraggableItem : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] new private Rigidbody2D rigidbody;
+    [SerializeField] private new Rigidbody2D rigidbody;
 
     [SerializeField, Tooltip("Ignore Gravity When Drag")]
     private bool ignoreGravity = true;
@@ -26,7 +26,8 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IPointerDownHandler, I
     {
         var pointPosition = camera.ScreenToWorldPoint(eventData.position);
         pointPosition.z = transform.position.z;
-        transform.position = pointPosition + offset;
+        //transform.position = pointPosition + offset;
+        rigidbody.MovePosition(pointPosition + offset);
     }
 
     public void OnPointerDown(PointerEventData eventData)

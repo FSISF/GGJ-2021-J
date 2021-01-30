@@ -77,7 +77,7 @@ public class Dragon : MonoBehaviour, IStateObject
     public bool CheckGround()
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(TransformRoot.position, Vector2.down, BoxCollider2DThis.bounds.extents.y + 0.05f, LayerMask.GetMask("Ground"));
-        return hits.Length > 0 && Rigidbody2DThis.velocity.y <= 0f;
+        return hits.Length > 0 && Rigidbody2DThis.velocity.y <= 0.1f;
     }
 
     private void OnDrawGizmos()
