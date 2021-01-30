@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 844141180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0435fba01c389c47a9794d859702336, type: 3}
+  m_Script: {fileID: 11500000, guid: f34e0f706b1c84f789929cf416e5d649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floor: {fileID: 128076136}
@@ -1413,7 +1413,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1247187437}
-  - component: {fileID: 1247187438}
   m_Layer: 0
   m_Name: Blockouts
   m_TagString: Untagged
@@ -1439,20 +1438,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1247187438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247187436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f89eb7d6a63a8a49bfd41c5a552d27f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floor: {fileID: 128076136}
-  layerName: Ground
 --- !u!1001 &1359157716
 PrefabInstance:
   m_ObjectHideFlags: 0
