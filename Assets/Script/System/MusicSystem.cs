@@ -43,6 +43,12 @@ public class MusicSystem : SingletonMono<MusicSystem>
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+
+        Script.Game.GameEventManager.Instance.MusicVolumeChange += SetVolumeBGM;
+        Script.Game.GameEventManager.Instance.SoundVolumeChange += SetVolumeSound;
+
+        SetVolumeBGM(0f);
+        SetVolumeSound(0f);
     }
 
     public void PlayBGM(eBGM bgm, bool loop = true)
