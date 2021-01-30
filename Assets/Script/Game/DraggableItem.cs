@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    [SerializeField] private Rigidbody2D rigidbody;
+    [SerializeField] new private Rigidbody2D rigidbody;
 
     [SerializeField, Tooltip("Ignore Gravity When Drag")]
     private bool ignoreGravity = true;

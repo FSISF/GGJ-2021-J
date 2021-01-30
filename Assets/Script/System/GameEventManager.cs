@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 namespace Script.Game
@@ -99,29 +100,165 @@ namespace Script.Game
 
         #region RiseEvent
 
-        public void OnStartButtonOnHit() => StartButtonOnHit?.Invoke();
-        public void OnSettingIconBack() => SettingIconBack?.Invoke();
-        public void OnHealthPenalBack() => HealthPenalBack?.Invoke();
-        public void OnScorePenalBack() => ScorePenalBack?.Invoke();
-        public void OnHighScorePenalBack() => HighScorePenalBack?.Invoke();
+        public void OnStartButtonOnHit()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("StartButtonOnHit");
+#endif
+            StartButtonOnHit?.Invoke();
+        }
 
-        public void OnBrightnessChange(float brightness) => BrightnessChange?.Invoke(brightness);
-        public void OnSoundVolumeChange(float volume) => SoundVolumeChange?.Invoke(volume);
-        public void OnMusicVolumeChange(float volume) => MusicVolumeChange?.Invoke(volume);
+        public void OnSettingIconBack()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("SettingIconBack");
+#endif
+            SettingIconBack?.Invoke();
+        }
 
-        public void OnSunBack() => SunBack?.Invoke();
-        public void OnGroundCompleted() => GroundCompleted?.Invoke();
-        public void OnCactusCompleted() => CactusCompleted?.Invoke();
-        public void OnPterodactylBack() => PterodactylBack?.Invoke();
-        public void OnSkyCompleted() => SkyComplete?.Invoke();
-        public void OnGoldFound() => GoldFound?.Invoke();
-        public void OnMeteoriteFall() => MeteoriteFall?.Invoke();
-        public void OnDinoFall() => DinoFall?.Invoke();
-        public void OnDinoBack() => DinoBack?.Invoke();
+        public void OnHealthPenalBack()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("HealthPenalBack");
+#endif
+            HealthPenalBack?.Invoke();
+        }
 
-        public void OnDinoCatchGold() => DinoCatchGold?.Invoke();
-        public void OnDinoHeart(int health) => DinoHeart?.Invoke(health);
-        public void OnDinoDead() => DinoDead?.Invoke();
+        public void OnScorePenalBack()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("ScorePenalBack");
+#endif
+            ScorePenalBack?.Invoke();
+        }
+
+        public void OnHighScorePenalBack()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("HighScorePenalBack");
+#endif
+            HighScorePenalBack?.Invoke();
+        }
+
+        public void OnBrightnessChange(float brightness)
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("BrightnessChange" + " : " + brightness);
+#endif
+            BrightnessChange?.Invoke(brightness);
+        }
+
+        public void OnSoundVolumeChange(float volume)
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("SoundVolumeChange" + " : " +volume);
+#endif
+            SoundVolumeChange?.Invoke(volume);
+        }
+
+        public void OnMusicVolumeChange(float volume)
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("MusicVolumeChange" + " : " +volume);
+#endif
+            MusicVolumeChange?.Invoke(volume);
+        }
+
+        public void OnSunBack()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("SunBack");
+#endif
+            SunBack?.Invoke();
+        }
+
+        public void OnGroundCompleted()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("GroundCompleted");
+#endif
+            GroundCompleted?.Invoke();
+        }
+
+        public void OnCactusCompleted()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("CactusCompleted");
+#endif
+            CactusCompleted?.Invoke();
+        }
+
+        public void OnPterodactylBack()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("PterodactylBack");
+#endif
+            PterodactylBack?.Invoke();
+        }
+
+        public void OnSkyCompleted()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("SkyComplete");
+#endif
+            SkyComplete?.Invoke();
+        }
+
+        public void OnGoldFound()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("GoldFound");
+#endif
+            GoldFound?.Invoke();
+        }
+
+        public void OnMeteoriteFall()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("MeteoriteFall");
+#endif
+            MeteoriteFall?.Invoke();
+        }
+
+        public void OnDinoFall()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("DinoFall");
+#endif
+            DinoFall?.Invoke();
+        }
+
+        public void OnDinoBack()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("DinoBack");
+#endif
+            DinoBack?.Invoke();
+        }
+
+        public void OnDinoCatchGold()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("DinoCatchGold");
+#endif
+            DinoCatchGold?.Invoke();
+        }
+
+        public void OnDinoHeart(int health)
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("DinoHeart" + " health left : " + health);
+#endif
+            DinoHeart?.Invoke(health);
+        }
+
+        public void OnDinoDead()
+        {
+#if true || UNITY_EDITOR
+            Debug.Log("DinoDead");
+#endif
+            DinoDead?.Invoke();
+        }
 
         #endregion
     }
