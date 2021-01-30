@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2059627295
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d6ba59b116a4b0743beca52e76d61b15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2759032289509556852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2759032289060121808}
@@ -130,6 +130,7 @@ MonoBehaviour:
   State: 0
   TransformRoot: {fileID: 2759032289509556854}
   SpriteRendererFlyDragon: {fileID: 2759032289060121809}
+  CameraController: {fileID: 0}
 --- !u!61 &2306130014288294524
 BoxCollider2D:
   m_ObjectHideFlags: 0
