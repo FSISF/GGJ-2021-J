@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class DraggableItem : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] new private Rigidbody2D rigidbody;
 
@@ -14,6 +14,7 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     private new Camera camera;
     private float gravity;
+    private Vector3 offset;
 
     private void Start()
     {
@@ -25,18 +26,21 @@ public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     {
         var pointPosition = camera.ScreenToWorldPoint(eventData.position);
         pointPosition.z = transform.position.z;
-        transform.position = pointPosition;
+        transform.position = pointPosition + offset;
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (rigidbody is null || !ignoreGravity) return;
 
+        var pointPosition = camera.ScreenToWorldPoint(eventData.position);
+        offset = transform.position - pointPosition;
+        offset.z = 0;
         gravity = rigidbody.gravityScale;
         rigidbody.gravityScale = 0;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (rigidbody is null || !ignoreGravity) return;
 
