@@ -19,6 +19,8 @@ namespace Script.Game
         public event Action HighScorePenalBack;
 
         public event Action<float> BrightnessChange;
+        
+        public event Action<float> SaturationChange;
 
         public event Action<float> SoundVolumeChange;
 
@@ -115,6 +117,7 @@ namespace Script.Game
 #endif
             SettingIconBack?.Invoke();
         }
+        public void OnSaturationChange(float saturation) => SaturationChange?.Invoke(saturation);
 
         public void OnHealthPenalBack()
         {

@@ -9,7 +9,12 @@ public class SettingPanelController : MonoBehaviour
     {
         GameEventManager.Instance.OnBrightnessChange(val);
     }
-    
+
+    public void OnSaturationValueChanged(float val)
+    {
+        GameEventManager.Instance.OnSaturationChange(val);
+    }
+
     public void OnMusicVolumeValueChanged(float val)
     {
         GameEventManager.Instance.OnMusicVolumeChange(val);
