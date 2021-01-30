@@ -34,11 +34,14 @@ public class Dragon : MonoBehaviour, IStateObject
             case eDragonState.Move:
                 DragonStateContext.SetState(new DragonState_Move(this));
                 break;
-            case eDragonState.SargentJump:
-                DragonStateContext.SetState(new DragonState_SargentJump(this));
+            case eDragonState.Jump:
+                DragonStateContext.SetState(new DragonState_Jump(this));
                 break;
-            case eDragonState.MoveJump:
-                DragonStateContext.SetState(new DragonState_MoveJump(this));
+            case eDragonState.Hot:
+                DragonStateContext.SetState(new DragonState_Hot(this));
+                break;
+            case eDragonState.Injurd:
+                DragonStateContext.SetState(new DragonState_Injurd(this));
                 break;
         }
     }
@@ -71,8 +74,7 @@ public enum eDragonState
     None,
     Idle,
     Move,
-    SargentJump,
-    MoveJump,
+    Jump,
     Hot,
     Injurd,
 }
@@ -121,7 +123,7 @@ public class DragonState_Idle : IDragonState
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            Dragon.SetState(eDragonState.SargentJump);
+            Dragon.SetState(eDragonState.Jump);
         }
     }
 
@@ -160,45 +162,20 @@ public class DragonState_Move : IDragonState
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Dragon.SetState(eDragonState.MoveJump);
+            Dragon.SetState(eDragonState.Jump);
         }
     }
 
     public override void StateEnd() { }
 }
 
-public class DragonState_SargentJump : IDragonState
+public class DragonState_Jump : IDragonState
 {
-    public DragonState_SargentJump(Dragon dragon) : base(dragon)
+    public DragonState_Jump(Dragon dragon) : base(dragon)
     {
     }
 
-    public override eDragonState State { get { return eDragonState.SargentJump; } }
-
-    public override void StateStart()
-    {
-        MusicSystem.Instance.PlaySound(eSound.Jump);
-        Dragon.Jump();
-    }
-
-    public override void StateUpdate()
-    {
-        if (Dragon.CheckGround())
-        {
-            Dragon.SetState(eDragonState.Idle);
-        }
-    }
-
-    public override void StateEnd() { }
-}
-
-public class DragonState_MoveJump : IDragonState
-{
-    public DragonState_MoveJump(Dragon dragon) : base(dragon)
-    {
-    }
-
-    public override eDragonState State { get { return eDragonState.MoveJump; } }
+    public override eDragonState State { get { return eDragonState.Jump; } }
 
     public override void StateStart()
     {
@@ -252,7 +229,11 @@ public class DragonState_Injurd : IDragonState
 
     public override eDragonState State { get { return eDragonState.Injurd; } }
 
-    public override void StateStart() { }
+    public override void StateStart()
+    {
+        MusicSystem.Instance.PlaySound(eSound.Hit);
+    }
+
     public override void StateUpdate() { }
     public override void StateEnd() { }
 }
