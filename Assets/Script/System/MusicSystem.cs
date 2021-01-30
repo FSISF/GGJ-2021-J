@@ -5,6 +5,7 @@ using UnityEngine;
 public enum eBGM
 {
     None,
+    BGM,
 }
 
 [System.Serializable]
@@ -49,6 +50,8 @@ public class MusicSystem : SingletonMono<MusicSystem>
 
         SetVolumeBGM(0f);
         SetVolumeSound(0f);
+
+        PlayBGM(eBGM.BGM);
     }
 
     public void PlayBGM(eBGM bgm, bool loop = true)
