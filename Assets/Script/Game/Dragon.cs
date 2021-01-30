@@ -10,6 +10,9 @@ public class Dragon : MonoBehaviour, IStateObject
     public BoxCollider2D BoxCollider2DThis = null;
     public SpriteRenderer SpriteRendererDragon = null;
 
+    public SunController SunController = null;
+    public bool IsCactusCompleted = false;
+
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
     private Vector2 faceDirect = Vector2.right;
@@ -28,6 +31,12 @@ public class Dragon : MonoBehaviour, IStateObject
 
     void Start()
     {
+        SunController = GameObject.Find("Sun")?.GetComponent<SunController>();
+        Script.Game.GameEventManager.Instance.CactusCompleted += () =>
+        {
+            IsCactusCompleted = true;
+        };
+
         FaceDirect = Vector2.right;
         SetState(eDragonState.Idle);
     }
@@ -63,9 +72,9 @@ public class Dragon : MonoBehaviour, IStateObject
         }
     }
 
-    public void Move(Vector3 direct)
+    public void Move(Vector2 direct)
     {
-        TransformRoot.position += direct * 10 * Time.deltaTime;
+        Rigidbody2DThis.position += direct * 10 * Time.deltaTime;
         FaceDirect = direct;
     }
 
@@ -132,6 +141,7 @@ public class DragonState_Idle : IDragonState
     public override void StateUpdate()
     {
         CheckMove();
+        CheckSun();
     }
 
     private void CheckMove()
@@ -143,6 +153,22 @@ public class DragonState_Idle : IDragonState
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             Dragon.SetState(eDragonState.Jump);
+        }
+    }
+
+    private void CheckSun()
+    {
+        if (Dragon.IsCactusCompleted)
+        {
+            return;
+        }
+
+        if (Dragon.SunController != null)
+        {
+            if (Vector2.Distance(Dragon.SunController.transform.position, Dragon.TransformRoot.position) <= 5f)
+            {
+                Dragon.SetState(eDragonState.Hot);
+            }
         }
     }
 
@@ -236,7 +262,12 @@ public class DragonState_Hot : IDragonState
 
     public override eDragonState State { get { return eDragonState.Hot; } }
 
-    public override void StateStart() { }
+    public override void StateStart()
+    {
+        Script.Game.GameEventManager.Instance.OnCactusCompleted();
+        Dragon.SetState(eDragonState.Idle);
+    }
+
     public override void StateUpdate() { }
     public override void StateEnd() { }
 }
