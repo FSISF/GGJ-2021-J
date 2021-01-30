@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Game;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
@@ -17,9 +18,9 @@ public class RockController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name);
         if (other.gameObject.name != targetTriggerName) return;
         
+        GameEventManager.Instance.OnGroundCompleted();
         floorObject.SetActive(true);
         gameObject.SetActive(false);
     }

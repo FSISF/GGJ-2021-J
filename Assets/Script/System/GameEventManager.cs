@@ -6,6 +6,18 @@ namespace Script.Game
 {
     public class GameEventManager : Singleton<GameEventManager>
     {
+        #region Flags
+
+        private class Flags
+        {
+            public bool hasCompletedGround;
+            public bool hasCompletedCactus;
+        }
+
+        private Flags flags = new Flags();
+
+        #endregion
+        
         #region Event
 
         #region UI
@@ -83,6 +95,8 @@ namespace Script.Game
         #endregion
 
         #region DinoState
+
+        public event Action DinoSweat;
 
         /// <summary>
         /// 恐龍得到金幣
@@ -180,7 +194,19 @@ namespace Script.Game
 #if true || UNITY_EDITOR
             Debug.Log("GroundCompleted");
 #endif
+            if(flags.hasCompletedGround) return;
+            
+            flags.hasCompletedGround = true;
             GroundCompleted?.Invoke();
+        }
+
+        public void OnDinoSweat()
+        {
+            if (flags.hasCompletedGround && !flags.hasCompletedCactus)
+            {
+                OnCactusCompleted();
+            }
+            DinoSweat?.Invoke();
         }
 
         public void OnCactusCompleted()
@@ -188,6 +214,7 @@ namespace Script.Game
 #if true || UNITY_EDITOR
             Debug.Log("CactusCompleted");
 #endif
+            flags.hasCompletedCactus = true;
             CactusCompleted?.Invoke();
         }
 

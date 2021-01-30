@@ -11,7 +11,6 @@ public class Dragon : MonoBehaviour, IStateObject
     public SpriteRenderer SpriteRendererDragon = null;
 
     public SunController SunController = null;
-    public bool IsCactusCompleted = false;
 
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
@@ -32,10 +31,6 @@ public class Dragon : MonoBehaviour, IStateObject
     void Start()
     {
         SunController = GameObject.Find("Sun")?.GetComponent<SunController>();
-        Script.Game.GameEventManager.Instance.CactusCompleted += () =>
-        {
-            IsCactusCompleted = true;
-        };
 
         FaceDirect = Vector2.right;
         SetState(eDragonState.Idle);
@@ -158,11 +153,6 @@ public class DragonState_Idle : IDragonState
 
     private void CheckSun()
     {
-        if (Dragon.IsCactusCompleted)
-        {
-            return;
-        }
-
         if (Dragon.SunController != null)
         {
             if (Vector2.Distance(Dragon.SunController.transform.position, Dragon.TransformRoot.position) <= 5f)
@@ -264,7 +254,7 @@ public class DragonState_Hot : IDragonState
 
     public override void StateStart()
     {
-        Script.Game.GameEventManager.Instance.OnCactusCompleted();
+        Script.Game.GameEventManager.Instance.OnDinoSweat();
         Dragon.SetState(eDragonState.Idle);
     }
 
