@@ -10,6 +10,8 @@ public class FlyDragon : MonoBehaviour, IStateObject, IPointerClickHandler
 
     public SpriteRenderer SpriteRendererFlyDragon = null;
 
+    public CameraController CameraController = null;
+
     private Vector2 faceDirect = Vector2.right;
     public Vector2 FaceDirect
     {
@@ -28,6 +30,8 @@ public class FlyDragon : MonoBehaviour, IStateObject, IPointerClickHandler
 
     void Start()
     {
+        CameraController = GameObject.Find("Main Camera")?.GetComponent<CameraController>();
+
         FaceDirect = (Random.value > 0.5f) ? Vector2.right : Vector2.left;
         SetState(eFlyDragonState.Wander);
     }
@@ -51,6 +55,9 @@ public class FlyDragon : MonoBehaviour, IStateObject, IPointerClickHandler
             case eFlyDragonState.Wander:
                 FlyDragonStateContext.SetState(new FlyDragonState_Wander(this));
                 break;
+            case eFlyDragonState.Hide:
+                FlyDragonStateContext.SetState(new FlyDragonState_Hide(this));
+                break;
         }
     }
 
@@ -72,6 +79,7 @@ public enum eFlyDragonState
     None,
     Wander,
     FlyAway,
+    Hide,
 }
 
 public class FlyDragonStateContext : IStateContext
@@ -164,7 +172,39 @@ public class FlyDragonState_FlyAway : IFlyDragonState
     public override void StateUpdate()
     {
         FlyDragon.Move(MoveDirect);
+        CheckHide();
     }
 
+    private void CheckHide()
+    {
+        if (FlyDragon.CameraController != null)
+        {
+            Vector2 pos = FlyDragon.TransformRoot.position;
+            float leftX = FlyDragon.CameraController.boundaryLeftBottom.x;
+            float rightX = FlyDragon.CameraController.boundaryRightTop.x;
+            if (pos.x <= leftX || pos.x >= rightX)
+            {
+                FlyDragon.SetState(eFlyDragonState.Hide);
+            }
+        }
+    }
+
+    public override void StateEnd() { }
+}
+
+public class FlyDragonState_Hide : IFlyDragonState
+{
+    public FlyDragonState_Hide(FlyDragon flyDragon) : base(flyDragon)
+    {
+    }
+
+    public override eFlyDragonState State { get { return eFlyDragonState.Hide; } }
+
+    public override void StateStart()
+    {
+        FlyDragon.gameObject.SetActive(false);
+    }
+
+    public override void StateUpdate() { }
     public override void StateEnd() { }
 }
