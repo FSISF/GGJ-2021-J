@@ -16,5 +16,11 @@ namespace Script.TestHelper
         {
             GameEventManager.Instance.OnBrightnessChange(0);
         }
+
+        [ContextMenu("RiseDinoFall")]
+        public void RiseDinoFall()
+        {
+            GameEventManager.Instance.OnDinoFall();
+        }
     }
 }

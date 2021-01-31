@@ -16,7 +16,7 @@ namespace Script.RepairUI
             GameEventManager.Instance.GoldFound += () => _active = true;
             GameEventManager.Instance.DinoCatchGold += OnCatchGold;
             scorePanel.SetActive(false);
-            scorePanel.SetActive(true);
+            tip.SetActive(false);
         }
 
         private void OnCatchGold()
