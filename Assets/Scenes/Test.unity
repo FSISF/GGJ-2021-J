@@ -771,6 +771,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5366779266439896160, guid: 0fbf6bb3e0301f24cad9a8723e7b8693, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366779266439896160, guid: 0fbf6bb3e0301f24cad9a8723e7b8693, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.37
+      objectReference: {fileID: 0}
     - target: {fileID: 5925894528627382536, guid: 0fbf6bb3e0301f24cad9a8723e7b8693, type: 3}
       propertyPath: m_Name
       value: Meteorite
@@ -818,6 +826,14 @@ PrefabInstance:
     - target: {fileID: 8286427663095498641, guid: 0fbf6bb3e0301f24cad9a8723e7b8693, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217485739823914855, guid: 0fbf6bb3e0301f24cad9a8723e7b8693, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217485739823914855, guid: 0fbf6bb3e0301f24cad9a8723e7b8693, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -380162353
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fbf6bb3e0301f24cad9a8723e7b8693, type: 3}
