@@ -15,20 +15,19 @@ namespace Script.RepairUI
 
         private void Start()
         {
-            GameEventManager.Instance.BrightnessChange += OnBrightnessChange;
+            GameEventManager.Instance.GroundCompleted += () => _active = true;
+            GameEventManager.Instance.DinoHeart += OnDinoHeart;
             healthPanel.SetActive(false);
             tip.SetActive(false);
         }
 
-        private void OnBrightnessChange(float value)
+        private void OnDinoHeart(int _)
         {
-            if (value < 0.9f) return;
-
-            _active = true;
+            if (!_active) return;
+            
             tip.SetActive(true);
-            GameEventManager.Instance.BrightnessChange -= OnBrightnessChange;
+            GameEventManager.Instance.DinoHeart -= OnDinoHeart;
         }
-
 
         private void OnCollisionEnter2D(Collision2D other)
         {
