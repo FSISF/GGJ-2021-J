@@ -129,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   TransformRoot: {fileID: 8286427663095498641}
+  holePrefab: {fileID: 1809538428306448285, guid: 006d544cb0dc7314e9b18143d2888366, type: 3}
 --- !u!61 &4346146818600693554
 BoxCollider2D:
   m_ObjectHideFlags: 0
