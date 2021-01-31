@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Game;
 using UnityEngine;
 
 public class Dragon : MonoBehaviour, IStateObject
@@ -16,6 +17,10 @@ public class Dragon : MonoBehaviour, IStateObject
     public float moveSpeed = 10f;
 
     public float jumpForce = 2.5f;
+
+    public int health = 3;
+
+    public int maxHealth = 3;
 
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
@@ -311,6 +316,12 @@ public class DragonState_Injurd : IDragonState
     {
         MusicSystem.Instance.PlaySound(eSound.Hit);
         AddForce();
+        Dragon.health--;
+        GameEventManager.Instance.OnDinoHeart(Dragon.health);
+        if (Dragon.health == 0)
+        {
+            GameEventManager.Instance.OnDinoDead();
+        }
     }
 
     private void AddForce()
