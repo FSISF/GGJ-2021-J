@@ -8,7 +8,11 @@ using UnityEngine;
 public class CameraBoundSetter : MonoBehaviour
 {
     [SerializeField] private CameraController cameraController;
-    
+
+    [SerializeField] private float leftRightBound;
+    [SerializeField] private float topBound;
+    [SerializeField] private float bottomBound;
+
     private void Start()
     {
         if (!cameraController)
@@ -22,13 +26,21 @@ public class CameraBoundSetter : MonoBehaviour
             cameraController.boundaryLeftBottom = new Vector2(0, cameraController.boundaryLeftBottom.y);
             cameraController.boundaryRightTop = new Vector2(0, cameraController.boundaryRightTop.y);
         };
-        
+        GameEventManager.Instance.SkyComplete += () =>
+            cameraController.boundaryRightTop = new Vector2(cameraController.boundaryRightTop.x, topBound);
+        GameEventManager.Instance.MeteoriteFall += () =>
+            cameraController.boundaryRightTop = new Vector2(cameraController.boundaryRightTop.x, 0);
+        GameEventManager.Instance.DinoFall += () =>
+            cameraController.boundaryLeftBottom = new Vector2(cameraController.boundaryLeftBottom.x, bottomBound);
+        GameEventManager.Instance.DinoBack += () =>
+            cameraController.boundaryLeftBottom = cameraController.boundaryRightTop = Vector2.zero;
+
         void OnBrightnessChange(float value)
         {
             if (value < 0.9f) return;
 
-            cameraController.boundaryLeftBottom = new Vector2(-20, 0);
-            cameraController.boundaryRightTop = new Vector2(20, 0);
+            cameraController.boundaryLeftBottom = new Vector2(-leftRightBound, 0);
+            cameraController.boundaryRightTop = new Vector2(leftRightBound, 0);
 
             GameEventManager.Instance.BrightnessChange -= OnBrightnessChange;
         }
