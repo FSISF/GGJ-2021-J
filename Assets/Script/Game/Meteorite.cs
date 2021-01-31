@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Game;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -153,6 +154,7 @@ public class MeteoriteState_FallDownGround : IMeteoriteState
         {
             Meteorite.SetState(eMeteoriteState.StuckGround);
             Meteorite.SpawnHole();
+            GameEventManager.Instance.OnDinoFall();
         }
     }
 
