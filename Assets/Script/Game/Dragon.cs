@@ -12,6 +12,10 @@ public class Dragon : MonoBehaviour, IStateObject
 
     public SunController SunController = null;
 
+    public float moveSpeed = 10f;
+
+    public float jumpForce = 2.5f;
+
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
     private Vector2 faceDirect = Vector2.right;
@@ -69,7 +73,7 @@ public class Dragon : MonoBehaviour, IStateObject
 
     public void Move(Vector2 direct)
     {
-        Rigidbody2DThis.position += direct * 10 * Time.deltaTime;
+        Rigidbody2DThis.position += direct * moveSpeed * Time.deltaTime;
         FaceDirect = direct;
     }
 
@@ -281,11 +285,11 @@ public class DragonState_Injurd : IDragonState
         Dragon.Rigidbody2DThis.velocity = Vector2.zero;
         if (Dragon.FaceDirect == Vector2.right)
         {
-            Dragon.Rigidbody2DThis.AddForce(new Vector2(-1, 1) * 2.5f, ForceMode2D.Impulse);
+            Dragon.Rigidbody2DThis.AddForce(new Vector2(-1, 1) * Dragon.jumpForce, ForceMode2D.Impulse);
         }
         else
         {
-            Dragon.Rigidbody2DThis.AddForce(new Vector2(1, 1) * 2.5f, ForceMode2D.Impulse);
+            Dragon.Rigidbody2DThis.AddForce(new Vector2(1, 1) * Dragon.jumpForce, ForceMode2D.Impulse);
         }
     }
 

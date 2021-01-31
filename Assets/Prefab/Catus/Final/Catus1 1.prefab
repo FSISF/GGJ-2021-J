@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1646263338213372897
+--- !u!1 &1130080675768876070
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1646263338213372896}
-  - component: {fileID: 1646263338213372899}
+  - component: {fileID: 1130080675768876071}
+  - component: {fileID: 1130080675768876068}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -17,27 +17,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1646263338213372896
+--- !u!4 &1130080675768876071
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646263338213372897}
+  m_GameObject: {fileID: 1130080675768876070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1646263338571257554}
+  m_Father: {fileID: 1130080676574417343}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1646263338213372899
+--- !u!212 &1130080675768876068
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646263338213372897}
+  m_GameObject: {fileID: 1130080675768876070}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: -380162353
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bd67880a8d5f7ca44b84565b488a4fcb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b2fb38402db911e43809b60da5b5b228, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1646263338571257553
+--- !u!1 &1130080676574417336
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,45 +90,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1646263338571257554}
-  - component: {fileID: 1646263338571257555}
-  - component: {fileID: 1646263338571257552}
+  - component: {fileID: 1130080676574417343}
+  - component: {fileID: 1130080676574417342}
+  - component: {fileID: 1593052918}
+  - component: {fileID: 1593052917}
   m_Layer: 0
-  m_Name: Catus3
+  m_Name: Catus1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1646263338571257554
+--- !u!4 &1130080676574417343
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646263338571257553}
+  m_GameObject: {fileID: 1130080676574417336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.307, y: -0.66, z: 0}
+  m_LocalPosition: {x: 3.53, y: -0.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1646263338213372896}
+  - {fileID: 1130080675768876071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1646263338571257555
+--- !u!61 &1130080676574417342
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646263338571257553}
+  m_GameObject: {fileID: 1130080676574417336}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09, y: 0}
+  m_Offset: {x: 0.1, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -139,85 +140,38 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 2.07}
+  m_Size: {x: 1.1, y: 2.2}
   m_EdgeRadius: 0
---- !u!114 &1646263338571257552
+--- !u!50 &1593052918
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130080676574417336}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1593052917
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646263338571257553}
+  m_GameObject: {fileID: 1130080676574417336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a99ec37920425f34483bdce964cc7819, type: 3}
+  m_Script: {fileID: 11500000, guid: cf260dee80ec4f846adf61968aea6556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  State: 0
-  TransformRoot: {fileID: 1646263338571257554}
-  AnimationCurveGrow:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.5
-      outSlope: 2.5
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 1.25
-      inSlope: -0.005023415
-      outSlope: -0.005023415
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.13132584
-    - serializedVersion: 3
-      time: 0.7
-      value: 0.9
-      inSlope: -0.03621268
-      outSlope: -0.03621268
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.30496362
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.85
-      value: 1.05
-      inSlope: 0.06326393
-      outSlope: 0.06326393
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.44502544
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.33333308
-      outSlope: -0.33333308
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  BoxCollider2DThis: {fileID: 1646263338571257555}
-  ContactFilter2DPlayer:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 128
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0

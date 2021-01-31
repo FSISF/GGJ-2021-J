@@ -14,20 +14,11 @@ public class PostProcessingController : MonoBehaviour
     public Vector2 saturationControlRange = new Vector2(-100, 0);
 
     private ColorGrading gradingSettings;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        if(volume) volume.profile.TryGetSettings(out gradingSettings);
-        if (gradingSettings)
-        {
-            OnBrightnessChanged(0);
-            OnSaturationChanged(0);
-        }
-    }
 
     private void OnBrightnessChanged(float val)
     {
+        if (!gradingSettings && volume) volume.profile.TryGetSettings(out gradingSettings);
+        
         if (!gradingSettings) return;
 
         gradingSettings.postExposure.Override(Mathf.Lerp(brightnessControlRange.x, brightnessControlRange.y, val));
@@ -35,7 +26,9 @@ public class PostProcessingController : MonoBehaviour
 
     private void OnSaturationChanged(float val)
     {
-        if(!gradingSettings) return;
+        if (!gradingSettings && volume) volume.profile.TryGetSettings(out gradingSettings);
+        
+        if (!gradingSettings) return;
         
         gradingSettings.saturation.Override(Mathf.Lerp(saturationControlRange.x, saturationControlRange.y, val));
     }

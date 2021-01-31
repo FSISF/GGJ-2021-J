@@ -2093,6 +2093,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f32e5a137d0ae247b1af751e54875fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brightnessSlider: {fileID: 7578273435175172528}
+  saturationSlider: {fileID: 4544781876150084499}
+  musicVolumeSlider: {fileID: 7578273435227129491}
+  sfxVolumeSlider: {fileID: 7578273434935095009}
+  brightnessDefaultVal: 0
+  saturationDefaultVal: 0
+  musicVolumeDefaultVal: 0
+  sfxVolumeDefaultVal: 0
 --- !u!1 &7578273436431899544
 GameObject:
   m_ObjectHideFlags: 0
