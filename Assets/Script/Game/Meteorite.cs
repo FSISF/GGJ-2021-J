@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class Meteorite : MonoBehaviour, IStateObject, IPointerClickHandler
     [SerializeField] private GameObject holePrefab;
     
     private MeteoriteStateContext MeteoriteStateContext = new MeteoriteStateContext();
+    private int hitCount;
 
     void Start()
     {
@@ -57,7 +59,17 @@ public class Meteorite : MonoBehaviour, IStateObject, IPointerClickHandler
     {
         Instantiate(holePrefab, transform.position, Quaternion.identity);
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (MeteoriteStateContext.GetState() != eMeteoriteState.StuckGround
+            && other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+
+        hitCount++;
+        if (hitCount == 3)
+            SetState(eMeteoriteState.FallDown);     
+    }
+
     #region IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
@@ -156,7 +168,11 @@ public class MeteoriteState_StuckGround : IMeteoriteState
     public override eMeteoriteState State { get { return eMeteoriteState.StuckGround; } }
 
     public override void StateStart() { }
-    public override void StateUpdate() { }
+
+    public override void StateUpdate()
+    {
+        
+    }
     public override void StateEnd() { }
 }
 
