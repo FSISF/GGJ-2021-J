@@ -8,6 +8,8 @@ public class Meteorite : MonoBehaviour, IStateObject, IPointerClickHandler
     public eMeteoriteState State;
     public Transform TransformRoot = null;
 
+    [SerializeField] private GameObject holePrefab;
+    
     private MeteoriteStateContext MeteoriteStateContext = new MeteoriteStateContext();
 
     void Start()
@@ -51,6 +53,11 @@ public class Meteorite : MonoBehaviour, IStateObject, IPointerClickHandler
         return hits.Length > 0;
     }
 
+    public void SpawnHole()
+    {
+        Instantiate(holePrefab, transform.position, Quaternion.identity);
+    }
+    
     #region IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
@@ -133,6 +140,7 @@ public class MeteoriteState_FallDownGround : IMeteoriteState
         if (Meteorite.CheckGround())
         {
             Meteorite.SetState(eMeteoriteState.StuckGround);
+            Meteorite.SpawnHole();
         }
     }
 
