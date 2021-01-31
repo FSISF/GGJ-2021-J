@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Game;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class FinalGameManager : MonoBehaviour
@@ -49,6 +51,18 @@ public class FinalGameManager : MonoBehaviour
         bgmSource = MusicSystem.Instance.AudioSource_BGM;
     }
 
+    private void OnDinoDead()
+    {
+        bgmSource.volume = 0;
+        MusicSystem.Instance.AudioSource_Sound.volume = 0;
+        SceneManager.LoadScene(2);
+    }
+
+    private void OnEnable()
+    {
+        GameEventManager.Instance.DinoDead += OnDinoDead;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -91,6 +105,7 @@ public class FinalGameManager : MonoBehaviour
     private void OnDisable()
     {
         if(bgmSource) bgmSource.pitch = 1f;
+        GameEventManager.Instance.DinoDead -= OnDinoDead;
     }
 
     private void Spawn()
