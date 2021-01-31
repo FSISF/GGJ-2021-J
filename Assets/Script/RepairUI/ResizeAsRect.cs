@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class ResizeAsRect : MonoBehaviour
 {
     [SerializeField] private RectTransform target;

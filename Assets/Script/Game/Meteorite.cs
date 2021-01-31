@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Meteorite : MonoBehaviour, IStateObject
+public class Meteorite : MonoBehaviour, IStateObject, IPointerClickHandler
 {
     public eMeteoriteState State;
     public Transform TransformRoot = null;
@@ -46,8 +47,16 @@ public class Meteorite : MonoBehaviour, IStateObject
 
     public bool CheckGround()
     {
-        return false;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(TransformRoot.position, Vector2.down, 0.01f, LayerMask.GetMask("Ground"));
+        return hits.Length > 0;
     }
+
+    #region IPointerClickHandler
+    public void OnPointerClick(PointerEventData pointerEventData)
+    {
+        MeteoriteStateContext.OnPointerClick(pointerEventData);
+    }
+    #endregion
 }
 
 public enum eMeteoriteState
@@ -69,6 +78,11 @@ public class MeteoriteStateContext : IStateContext
         }
         return ((IMeteoriteState)State).State;
     }
+
+    public void OnPointerClick(PointerEventData pointerEventData)
+    {
+        ((IMeteoriteState)State).OnPointerClick(pointerEventData);
+    }
 }
 
 public abstract class IMeteoriteState : IState
@@ -79,6 +93,10 @@ public abstract class IMeteoriteState : IState
 
     public virtual eMeteoriteState State { get { return eMeteoriteState.None; } }
     protected Meteorite Meteorite { get { return (Meteorite)StateObject; } }
+
+    public virtual void OnPointerClick(PointerEventData pointerEventData)
+    {
+    }
 }
 
 public class MeteoriteState_Idle : IMeteoriteState
@@ -92,6 +110,11 @@ public class MeteoriteState_Idle : IMeteoriteState
     public override void StateStart() { }
     public override void StateUpdate() { }
     public override void StateEnd() { }
+
+    public override void OnPointerClick(PointerEventData pointerEventData)
+    {
+        Meteorite.SetState(eMeteoriteState.FallDownGround);
+    }
 }
 
 public class MeteoriteState_FallDownGround : IMeteoriteState
@@ -107,6 +130,10 @@ public class MeteoriteState_FallDownGround : IMeteoriteState
     public override void StateUpdate()
     {
         Meteorite.FallDown();
+        if (Meteorite.CheckGround())
+        {
+            Meteorite.SetState(eMeteoriteState.StuckGround);
+        }
     }
 
     public override void StateEnd() { }
