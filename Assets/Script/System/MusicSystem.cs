@@ -43,6 +43,11 @@ public class MusicSystem : SingletonMono<MusicSystem>
 
     void Start()
     {
+        if (Instance && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         DontDestroyOnLoad(this.gameObject);
 
         Script.Game.GameEventManager.Instance.MusicVolumeChange += SetVolumeBGM;
