@@ -36,13 +36,15 @@ public class FinalGameManager : MonoBehaviour
 
     public AnimationCurve dinoSpeedCurve, meteorDropInterval, spaceSpriteHeight;
 
+    public ScorePanelController scorePanel;
+
     private float dinoFurthest, spawnThreshold;
 
     private AudioSource bgmSource;
 
     private bool isSpace = false;
-    
 
+    private int distScore, goldScore;
 
     private void Start()
     {
@@ -61,12 +63,22 @@ public class FinalGameManager : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.Instance.DinoDead += OnDinoDead;
+        GameEventManager.Instance.DinoCatchGold += OnGold;
+    }
+
+    private void OnGold()
+    {
+        goldScore += 10000;
+        scorePanel.UpdateScore(distScore + goldScore);
     }
 
     // Update is called once per frame
     void Update()
     {
         dinoFurthest = Mathf.Max(dinoFurthest, dino.transform.position.x);
+        distScore = Mathf.CeilToInt(dinoFurthest * 100);
+        scorePanel.UpdateScore(distScore + goldScore);
+        
         if (dinoFurthest >= spawnThreshold)
         {
             Spawn();
@@ -88,6 +100,7 @@ public class FinalGameManager : MonoBehaviour
 
     private void DropMeteor()
     {
+        if (!dino) return;
         var pos = new Vector3(
             dino.transform.position.x + Random.Range(meteorDropRelativeRange.x, meteorDropRelativeRange.y),
             meteorHeight, 0);
@@ -106,6 +119,7 @@ public class FinalGameManager : MonoBehaviour
     {
         if(bgmSource) bgmSource.pitch = 1f;
         GameEventManager.Instance.DinoDead -= OnDinoDead;
+        GameEventManager.Instance.DinoCatchGold -= OnGold;
     }
 
     private void Spawn()
