@@ -9,6 +9,7 @@ public class Dragon : MonoBehaviour, IStateObject
     public Rigidbody2D Rigidbody2DThis = null;
     public BoxCollider2D BoxCollider2DThis = null;
     public SpriteRenderer SpriteRendererDragon = null;
+    public Animator AnimatorDragon = null;
 
     public SunController SunController = null;
 
@@ -56,6 +57,9 @@ public class Dragon : MonoBehaviour, IStateObject
             case eDragonState.Move:
                 DragonStateContext.SetState(new DragonState_Move(this));
                 break;
+            case eDragonState.ReadyJump:
+                DragonStateContext.SetState(new DragonState_ReadyJump(this));
+                break;
             case eDragonState.Jump:
                 DragonStateContext.SetState(new DragonState_Jump(this));
                 break;
@@ -100,6 +104,7 @@ public enum eDragonState
     None,
     Idle,
     Move,
+    ReadyJump,
     Jump,
     Hot,
     Injurd,
@@ -136,7 +141,11 @@ public class DragonState_Idle : IDragonState
 
     public override eDragonState State { get { return eDragonState.Idle; } }
 
-    public override void StateStart() { }
+    public override void StateStart()
+    {
+        Dragon.AnimatorDragon.Play("Idle");
+    }
+
     public override void StateUpdate()
     {
         CheckMove();
@@ -151,7 +160,7 @@ public class DragonState_Idle : IDragonState
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            Dragon.SetState(eDragonState.Jump);
+            Dragon.SetState(eDragonState.ReadyJump);
         }
     }
 
@@ -177,10 +186,13 @@ public class DragonState_Move : IDragonState
 
     public override eDragonState State { get { return eDragonState.Move; } }
 
-    public override void StateStart() { }
+    public override void StateStart()
+    {
+    }
 
     public override void StateUpdate()
     {
+        Dragon.AnimatorDragon.Play("Walk");
         CheckControl();
     }
 
@@ -201,10 +213,31 @@ public class DragonState_Move : IDragonState
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Dragon.SetState(eDragonState.Jump);
+            Dragon.SetState(eDragonState.ReadyJump);
         }
     }
 
+    public override void StateEnd() { }
+}
+
+public class DragonState_ReadyJump : IDragonState
+{
+    public DragonState_ReadyJump(Dragon dragon) : base(dragon)
+    {
+    }
+
+    public override eDragonState State { get { return eDragonState.ReadyJump; } }
+
+    public override void StateStart()
+    {
+        Dragon.AnimatorDragon.Play("Jump");
+        Common.Timer(10f / 60f, () => 
+        {
+            Dragon.SetState(eDragonState.Jump);
+        });
+    }
+
+    public override void StateUpdate() { }
     public override void StateEnd() { }
 }
 
