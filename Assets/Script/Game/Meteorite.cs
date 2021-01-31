@@ -154,7 +154,7 @@ public class MeteoriteState_FallDownGround : IMeteoriteState
         {
             Meteorite.SetState(eMeteoriteState.StuckGround);
             Meteorite.SpawnHole();
-            GameEventManager.Instance.OnDinoFall();
+            GameEventManager.Instance.OnMeteoriteFall();
         }
     }
 

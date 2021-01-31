@@ -7,7 +7,7 @@ namespace Script.RepairUI
     {
         void Start()
         {
-            GameEventManager.Instance.SkyComplete += () => gameObject.SetActive(true);
+            GameEventManager.Instance.CactusCompleted += () => gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
     }

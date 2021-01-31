@@ -23,7 +23,7 @@ namespace Script.Game
         #region UI
 
         public event Action SettingIconBack;
-
+        
         public event Action HealthPenalBack;
 
         public event Action ScorePenalBack;

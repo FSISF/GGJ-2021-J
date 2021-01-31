@@ -26,12 +26,12 @@ public class CameraBoundSetter : MonoBehaviour
             cameraController.boundaryLeftBottom = new Vector2(0, cameraController.boundaryLeftBottom.y);
             cameraController.boundaryRightTop = new Vector2(0, cameraController.boundaryRightTop.y);
         };
-        GameEventManager.Instance.SkyComplete += () =>
+        GameEventManager.Instance.CactusCompleted += () =>
             cameraController.boundaryRightTop = new Vector2(cameraController.boundaryRightTop.x, topBound);
         GameEventManager.Instance.MeteoriteFall += () =>
             cameraController.boundaryRightTop = new Vector2(cameraController.boundaryRightTop.x, 0);
         GameEventManager.Instance.DinoFall += () =>
-            cameraController.boundaryLeftBottom = new Vector2(cameraController.boundaryLeftBottom.x, bottomBound);
+            cameraController.boundaryLeftBottom = new Vector2(cameraController.boundaryLeftBottom.x, -bottomBound);
         GameEventManager.Instance.DinoBack += () =>
             cameraController.boundaryLeftBottom = cameraController.boundaryRightTop = Vector2.zero;
 
