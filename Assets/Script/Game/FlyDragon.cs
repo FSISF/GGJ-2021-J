@@ -9,6 +9,7 @@ public class FlyDragon : MonoBehaviour, IStateObject, IPointerClickHandler
     public Transform TransformRoot = null;
 
     public SpriteRenderer SpriteRendererFlyDragon = null;
+    public Animator AnimatorFlyDragon = null;
 
     public CameraController CameraController = null;
 

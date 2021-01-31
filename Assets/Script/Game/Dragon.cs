@@ -93,7 +93,7 @@ public class Dragon : MonoBehaviour, IStateObject
 
     public bool CheckGround()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(TransformRoot.position, Vector2.down, BoxCollider2DThis.bounds.extents.y + 0.05f, LayerMask.GetMask("Ground"));
+        RaycastHit2D[] hits = Physics2D.RaycastAll(TransformRoot.position, Vector2.down, BoxCollider2DThis.bounds.extents.y + 0.05f, LayerMask.GetMask("Ground", "Meteorite"));
         return hits.Length > 0 && Rigidbody2DThis.velocity.y <= 0.05f;
     }
 
@@ -193,11 +193,11 @@ public class DragonState_Move : IDragonState
 
     public override void StateStart()
     {
+        Dragon.AnimatorDragon.Play("Walk");
     }
 
     public override void StateUpdate()
     {
-        Dragon.AnimatorDragon.Play("Walk");
         CheckControl();
     }
 
@@ -296,11 +296,26 @@ public class DragonState_Hot : IDragonState
 
     public override void StateStart()
     {
+        Dragon.AnimatorDragon.Play("Sweat");
         Script.Game.GameEventManager.Instance.OnDinoSweat();
-        Dragon.SetState(eDragonState.Idle);
     }
 
-    public override void StateUpdate() { }
+    public override void StateUpdate()
+    {
+        CheckSun();
+    }
+
+    private void CheckSun()
+    {
+        if (Dragon.SunController != null)
+        {
+            if (Vector2.Distance(Dragon.SunController.transform.position, Dragon.TransformRoot.position) > 5f)
+            {
+                Dragon.SetState(eDragonState.Idle);
+            }
+        }
+    }
+
     public override void StateEnd() { }
 }
 
@@ -314,6 +329,7 @@ public class DragonState_Injurd : IDragonState
 
     public override void StateStart()
     {
+        Dragon.AnimatorDragon.Play("StartHurt");
         MusicSystem.Instance.PlaySound(eSound.Hit);
         AddForce();
         Dragon.health--;

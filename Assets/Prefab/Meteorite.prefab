@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5366779266439896160}
   - component: {fileID: 9217485739823914855}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 8286427663095498641}
   - component: {fileID: 6434889798673144917}
   - component: {fileID: 4346146818600693554}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Meteorite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
