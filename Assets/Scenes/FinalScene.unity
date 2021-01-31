@@ -1036,7 +1036,10 @@ MonoBehaviour:
   spaceSprite: {fileID: 2118008592}
   cactusPrefabs:
   - {fileID: 1130080676574417336, guid: a65b200a10f5f7444a3372ecc044672f, type: 3}
-  badDragonPrefab: {fileID: 2759032289509556852, guid: 64391912ffc384b4f87206ce9cf1a0b5, type: 3}
+  - {fileID: 1130080676574417336, guid: ce54a2e971ce7dc4488aa73d441c3c76, type: 3}
+  - {fileID: 1130080676574417336, guid: 4750719bbbcd39f498bb43d40cae9f69, type: 3}
+  - {fileID: 1130080676574417336, guid: f64213a951b36964fac32f753ee84dac, type: 3}
+  badDragonPrefab: {fileID: 2759032289509556852, guid: 6a7b8745c93f5dd469c3c6595d1e0c9a, type: 3}
   coinPrefab: {fileID: 8845842633349516557, guid: 37a4e62302c4ff7408b6db99ded8c767, type: 3}
   meteorPrefab: {fileID: 487694231421998992, guid: c1d4ec8ab9ddae84098545ede9c6256a, type: 3}
   spawnBaseline: -4.5
@@ -2630,6 +2633,7 @@ GameObject:
   - component: {fileID: 1883172866}
   - component: {fileID: 1883172868}
   - component: {fileID: 1883172867}
+  - component: {fileID: 1883172869}
   m_Layer: 5
   m_Name: HealthPanel
   m_TagString: Untagged
@@ -2697,6 +2701,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883172865}
   m_CullTransparentMesh: 1
+--- !u!114 &1883172869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883172865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 467060495c9c80a41ae127a883b81ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearts:
+  - {fileID: 2104623601}
+  - {fileID: 1668880415}
+  - {fileID: 1661252065}
 --- !u!1 &2104623599
 GameObject:
   m_ObjectHideFlags: 0
