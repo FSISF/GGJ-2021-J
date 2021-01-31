@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Script.Game;
 using UnityEngine;
 
 public class Dragon : MonoBehaviour, IStateObject
@@ -9,12 +10,17 @@ public class Dragon : MonoBehaviour, IStateObject
     public Rigidbody2D Rigidbody2DThis = null;
     public BoxCollider2D BoxCollider2DThis = null;
     public SpriteRenderer SpriteRendererDragon = null;
+    public Animator AnimatorDragon = null;
 
     public SunController SunController = null;
 
     public float moveSpeed = 10f;
 
     public float jumpForce = 2.5f;
+
+    public int health = 3;
+
+    public int maxHealth = 3;
 
     private DragonStateContext DragonStateContext = new DragonStateContext();
 
@@ -55,6 +61,9 @@ public class Dragon : MonoBehaviour, IStateObject
                 break;
             case eDragonState.Move:
                 DragonStateContext.SetState(new DragonState_Move(this));
+                break;
+            case eDragonState.ReadyJump:
+                DragonStateContext.SetState(new DragonState_ReadyJump(this));
                 break;
             case eDragonState.Jump:
                 DragonStateContext.SetState(new DragonState_Jump(this));
@@ -100,6 +109,7 @@ public enum eDragonState
     None,
     Idle,
     Move,
+    ReadyJump,
     Jump,
     Hot,
     Injurd,
@@ -136,7 +146,11 @@ public class DragonState_Idle : IDragonState
 
     public override eDragonState State { get { return eDragonState.Idle; } }
 
-    public override void StateStart() { }
+    public override void StateStart()
+    {
+        Dragon.AnimatorDragon.Play("Idle");
+    }
+
     public override void StateUpdate()
     {
         CheckMove();
@@ -151,7 +165,7 @@ public class DragonState_Idle : IDragonState
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            Dragon.SetState(eDragonState.Jump);
+            Dragon.SetState(eDragonState.ReadyJump);
         }
     }
 
@@ -177,10 +191,13 @@ public class DragonState_Move : IDragonState
 
     public override eDragonState State { get { return eDragonState.Move; } }
 
-    public override void StateStart() { }
+    public override void StateStart()
+    {
+    }
 
     public override void StateUpdate()
     {
+        Dragon.AnimatorDragon.Play("Walk");
         CheckControl();
     }
 
@@ -201,10 +218,31 @@ public class DragonState_Move : IDragonState
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Dragon.SetState(eDragonState.Jump);
+            Dragon.SetState(eDragonState.ReadyJump);
         }
     }
 
+    public override void StateEnd() { }
+}
+
+public class DragonState_ReadyJump : IDragonState
+{
+    public DragonState_ReadyJump(Dragon dragon) : base(dragon)
+    {
+    }
+
+    public override eDragonState State { get { return eDragonState.ReadyJump; } }
+
+    public override void StateStart()
+    {
+        Dragon.AnimatorDragon.Play("Jump");
+        Common.Timer(10f / 60f, () => 
+        {
+            Dragon.SetState(eDragonState.Jump);
+        });
+    }
+
+    public override void StateUpdate() { }
     public override void StateEnd() { }
 }
 
@@ -278,6 +316,12 @@ public class DragonState_Injurd : IDragonState
     {
         MusicSystem.Instance.PlaySound(eSound.Hit);
         AddForce();
+        Dragon.health--;
+        GameEventManager.Instance.OnDinoHeart(Dragon.health);
+        if (Dragon.health == 0)
+        {
+            GameEventManager.Instance.OnDinoDead();
+        }
     }
 
     private void AddForce()
